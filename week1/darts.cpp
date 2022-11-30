@@ -2,24 +2,41 @@
 
 using namespace std;
 
+double distance(int x, int y)
+{
+    return sqrt(pow(x, 2) + pow(y, 2));
+}
+
 int main()
 {
-    int n, maxx = 0;
+    int n;
     cin >> n;
-    vector<int> vec;
+    int tx, ty, s = 0;
     for (int i = 0; i < n; i++)
     {
-        int t;
-        cin >> t;
-        vec.push_back(t);
-    }
-    for (int i = 0; i < vec.size(); i++)
-    {
-        if (vec.at(i) >= 0)
+        cin >> tx >> ty;
+        double dis = distance(tx, ty);
+        if (dis <= 2)
         {
-            maxx += vec.at(i);
+            s += 5;
+        }
+        else if (dis <= 4)
+        {
+            s += 4;
+        }
+        else if (dis <= 6)
+        {
+            s += 3;
+        }
+        else if (dis <= 8)
+        {
+            s += 2;
+        }
+        else if (dis <= 10)
+        {
+            s += 1;
         }
     }
-    cout << maxx;
+    cout << s;
     return 0;
 }
