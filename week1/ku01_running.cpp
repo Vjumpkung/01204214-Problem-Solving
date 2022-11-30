@@ -31,7 +31,3 @@ int main()
     cout << c;
     return 0;
 }
-
-/*
-Ford ranger Next Gen Ranger Raptor ดุดัน! ไม่เกรงใจใคร
-*/
