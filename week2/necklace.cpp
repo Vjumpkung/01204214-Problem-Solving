@@ -50,15 +50,9 @@ int main()
         }
         v[a - 1].splice(++it, v[a - 1]);
     }
-    for (int i = 0; i < n; i++)
+    for (auto x : v[find_set(0, arr)])
     {
-        if (v[i].size() != 0)
-        {
-            for (auto x : v[i])
-            {
-                cout << x << " ";
-            }
-        }
+        cout << x << " ";
     }
     return 0;
 }
