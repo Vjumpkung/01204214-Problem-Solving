@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <stack>
 #include <utility>
 
 using namespace std;
@@ -13,31 +12,15 @@ int heads;
 int tail, x = 1;
 pair<int, int> pa;
 vector<pair<int, int>> vec = {{0, 0}};
-stack<int> st;
-
-bool is_reversed(int idx)
-{
-    return reversed[idx];
-}
+vector<int> st = {1};
 
 bool isNumSecond(int num, int idx)
 {
     return num == vec.at(idx).second;
 }
 
-int find_next(int n)
-{
-    return pairs_next[n];
-}
-
-int find_previous(int n)
-{
-    return pairs_previous[n];
-}
-
 bool check_range(int idx, int num)
 {
-
     int first_num = min(vec.at(idx).first, vec.at(idx).second);
     int second_num = max(vec.at(idx).first, vec.at(idx).second);
 
@@ -58,7 +41,7 @@ void pairs_join(int from, int too)
 void pairs_cut(int num, int idx)
 {
     pair<int, int> p;
-    if (is_reversed(vec.at(idx).first))
+    if (reversed[vec.at(idx).first])
     {
         p.first = num - 1;
     }
@@ -68,8 +51,18 @@ void pairs_cut(int num, int idx)
     }
     p.second = vec.at(idx).second;
     vec.at(idx).second = num;
+    if (vec.at(idx).first > vec.at(idx).second)
+    {
+        reversed[vec.at(idx).first] = 1;
+        reversed[vec.at(idx).second] = 1;
+    }
+    else
+    {
+        reversed[vec.at(idx).first] = 0;
+        reversed[vec.at(idx).second] = 0;
+    }
     where[num] = idx;
-    if (p.second == tail)
+    if (p.second == vec.at(where[p.second]).second && pairs_next[vec.at(where[p.second]).second] == 0)
     {
         pairs_next[p.first] = 0;
         pairs_previous[p.second] = 0;
@@ -96,11 +89,11 @@ void pairs_cut(int num, int idx)
 void pairs_reverse(int idx)
 {
     int ptr = idx;
-    if (find_previous(vec.at(idx).first) == 0)
+    if (pairs_previous[vec.at(idx).first] == 0)
     {
-        int temp = vec[idx].first;
-        vec[idx].first = vec[idx].second;
-        vec[idx].second = temp;
+        int temp = vec.at(idx).first;
+        vec.at(idx).first = vec.at(idx).second;
+        vec.at(idx).second = temp;
         reversed[vec.at(idx).second] = !reversed[vec.at(idx).second];
         reversed[vec.at(idx).first] = !reversed[vec.at(idx).first];
     }
@@ -108,10 +101,9 @@ void pairs_reverse(int idx)
     {
         while (ptr != 0)
         {
-            int temp = vec[ptr].first;
-            vec[ptr].first = vec[ptr].second;
-            vec[ptr].second = temp;
-
+            int temp = vec.at(ptr).first;
+            vec.at(ptr).first = vec.at(ptr).second;
+            vec.at(ptr).second = temp;
             reversed[vec.at(ptr).second] = !reversed[vec.at(ptr).second];
             reversed[vec.at(ptr).first] = !reversed[vec.at(ptr).first];
 
@@ -124,8 +116,7 @@ void pairs_reverse(int idx)
             {
                 swap(pairs_next[vec.at(ptr).first], pairs_previous[vec.at(ptr).first]);
             }
-
-            ptr = where[find_next(vec.at(ptr).second)];
+            ptr = where[pairs_next[vec.at(ptr).second]];
         }
     }
 }
@@ -134,7 +125,6 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    st.push(1);
     int p, n, m, pairs_select = 1, y;
     char c;
     cin >> p >> n;
@@ -150,93 +140,72 @@ int main()
         vec.push_back(pa);
     }
 
-    heads = vec.at(pairs_select).first;
-    tail = vec.at(pairs_select).second;
-
     for (int i = 0; i < n; i++)
     {
         cin >> c;
         if (c == 'F')
         {
             int te;
-            if (!is_reversed(vec.at(pairs_select).first) && check_range(pairs_select, st.top() + 1))
+            if (!(reversed[vec.at(pairs_select).first] && reversed[vec.at(pairs_select).second]) && check_range(pairs_select, st[st.size() - 1] + 1))
             {
-                te = st.top() + 1;
-                st.push(te);
+                te = st[st.size() - 1] + 1;
+                st.push_back(te);
             }
-            else if (is_reversed(vec.at(pairs_select).first) && check_range(pairs_select, st.top() - 1))
+            else if ((reversed[vec.at(pairs_select).first] && reversed[vec.at(pairs_select).second]) && check_range(pairs_select, st[st.size() - 1] - 1))
             {
-                te = st.top() - 1;
-                st.push(te);
+                te = st[st.size() - 1] - 1;
+                st.push_back(te);
             }
-            else if ((st.top() != heads || st.top() != tail) && find_next(vec.at(pairs_select).second))
+            else if (pairs_next[vec.at(pairs_select).second] != 0)
             {
-                pairs_select = where[find_next(vec.at(pairs_select).second)];
-                st.push(vec.at(pairs_select).first);
+                pairs_select = where[pairs_next[vec.at(pairs_select).second]];
+                st.push_back(vec.at(pairs_select).first);
             }
         }
         else if (c == 'B')
         {
-            if (!is_reversed(vec.at(pairs_select).first) && check_range(pairs_select, st.top() - 1))
+            if (!(reversed[vec.at(pairs_select).first] && reversed[vec.at(pairs_select).second]) && check_range(pairs_select, st[st.size() - 1] - 1))
             {
-                st.pop();
+                st.pop_back();
             }
-            else if (is_reversed(vec.at(pairs_select).first) && check_range(pairs_select, st.top() + 1))
+            else if ((reversed[vec.at(pairs_select).first] && reversed[vec.at(pairs_select).second]) && check_range(pairs_select, st[st.size() - 1] + 1))
             {
-                st.pop();
+                st.pop_back();
             }
-            else if (find_previous(vec.at(pairs_select).first))
+            else if (pairs_previous[vec.at(pairs_select).first])
             {
-                pairs_select = where[find_previous(vec.at(pairs_select).first)];
-                st.pop();
+                pairs_select = where[pairs_previous[vec.at(pairs_select).first]];
+                st.pop_back();
             }
         }
         else if (c == 'C')
         {
             cin >> y;
-            if (isNumSecond(y, where[y]) && vec.at(where[y]).first != vec.at(where[y]).second && find_next(vec.at(where[y]).second) == 0)
+            if ((isNumSecond(y, where[y]) && vec[where[y]].first != vec[where[y]].second && pairs_next[vec[where[y]].second] == 0) || (pairs_previous[vec[where[y]].first] != 0))
             {
                 pairs_reverse(where[y]);
             }
-            else if (pairs_previous[vec.at(where[y]).first] != 0)
-            {
-                pairs_reverse(where[y]);
-            }
-            if (st.top() == tail)
+            if (st[st.size() - 1] == vec.at(where[st[st.size() - 1]]).second && pairs_next[vec.at(where[st[st.size() - 1]]).second] == 0)
             {
                 pairs_join(vec.at(pairs_select).second, y);
             }
-            else if ((vec.at(where[st.top()]).first == st.top() && vec.at(where[st.top()]).second == st.top()) || (st.top() != vec.at(where[st.top()]).first && find_next(vec.at(where[st.top()]).second) > 0))
+            else if ((vec.at(where[st[st.size() - 1]]).first == st[st.size() - 1] && vec.at(where[st[st.size() - 1]]).second == st[st.size() - 1]) || (st[st.size() - 1] != vec.at(where[st[st.size() - 1]]).first && pairs_next[vec.at(where[st[st.size() - 1]]).second] > 0))
             {
-                pairs_previous[find_next(vec.at(where[st.top()]).second)] = 0;
-                pairs_next[st.top()] = 0;
-                pairs_join(st.top(), y);
+                pairs_previous[pairs_next[vec.at(where[st[st.size() - 1]]).second]] = 0;
+                pairs_next[st[st.size() - 1]] = 0;
+                pairs_join(st[st.size() - 1], y);
             }
             else
             {
-                pairs_cut(st.top(), pairs_select);
-                pairs_join(st.top(), y);
+                pairs_cut(st[st.size() - 1], pairs_select);
+                pairs_join(st[st.size() - 1], y);
             }
 
-            pairs_select = where[find_next(vec.at(pairs_select).second)];
+            pairs_select = where[pairs_next[vec.at(pairs_select).second]];
 
-            tail = vec.at(pairs_select).second;
-            while (1)
-            {
-                int temp = find_next(tail);
-                if (temp != 0)
-                {
-                    tail = temp;
-                    tail = vec.at(where[tail]).second;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            st.push(vec.at(pairs_select).first);
+            st.push_back(vec.at(pairs_select).first);
         }
-        cout << st.top() << "\n";
+        cout << st[st.size() - 1] << "\n";
     }
 
     return 0;
