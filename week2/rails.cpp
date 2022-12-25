@@ -1,15 +1,20 @@
 #include <iostream>
 #include <stack>
-#include <list>
-
 using namespace std;
+
+void s_clear(stack<int> &s)
+{
+    while (!s.empty())
+    {
+        s.pop();
+    }
+}
 
 int main()
 {
-    int u, n, t;
-    stack<int> s;
-    list<int> l, a;
-    while (true)
+    stack<int> s, t, u;
+    int n, q, o = 0;
+    while (1)
     {
         cin >> n;
         if (n == 0)
@@ -18,63 +23,64 @@ int main()
         }
         else
         {
-            bool e = false;
             while (1)
             {
+                o = 0;
                 for (int i = 0; i < n; i++)
                 {
-                    cin >> t;
-                    if (t == 0)
+                    cin >> q;
+                    if (q == 0)
                     {
-                        l.clear();
-                        a.clear();
-                        cout << "\n";
-                        e = true;
-                        while (!s.empty())
-                        {
-                            s.pop();
-                        }
+                        cout << endl;
+                        o = 1;
+                        s_clear(s);
+                        s_clear(t);
+                        s_clear(u);
                         break;
                     }
-                    a.push_back(t);
-                    l.push_back(i + 1);
+
+                    s.push(q);
+                    t.push(i + 1);
                 }
-                if (e)
+
+                if (o)
                 {
                     break;
                 }
-                list<int>::iterator it = a.begin();
-                while (it != a.end() && !l.empty())
+
+                while (!s.empty() && !t.empty())
                 {
-                    if (l.front() == *it)
+                    if (!s.empty() && (s.top() == t.top()))
                     {
-                        l.pop_front();
-                        it++;
-                    }
-                    else if (!s.empty() && (s.top() == *it))
-                    {
+                        t.pop();
                         s.pop();
-                        it++;
+                    }
+                    else if (!u.empty() && (u.top() == t.top()))
+                    {
+                        u.pop();
+                        t.pop();
                     }
                     else
                     {
-                        s.push(l.front());
-                        l.pop_front();
+                        u.push(s.top());
+                        s.pop();
                     }
                 }
-                while (it != a.end() && !s.empty())
+
+                while (!u.empty() && !t.empty())
                 {
-                    if (s.top() == *it)
+                    if (u.top() == t.top())
                     {
-                        s.pop();
-                        it++;
+                        u.pop();
+                        t.pop();
                     }
                     else
                     {
                         break;
                     }
                 }
-                if (!s.empty())
+
+                if (!u.empty())
                 {
                     cout << "No\n";
                 }
@@ -82,14 +88,13 @@ int main()
                 {
                     cout << "Yes\n";
                 }
-                l.clear();
-                a.clear();
-                while (!s.empty())
-                {
-                    s.pop();
-                }
+
+                s_clear(s);
+                s_clear(t);
+                s_clear(u);
             }
         }
     }
+
     return 0;
 }
