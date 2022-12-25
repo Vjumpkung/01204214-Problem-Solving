@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Problem Solving Lab</title>
+  <link rel="stylesheet" media="screen" href="/grader/assets/application-9123f0ae31c5cb402c09bf615783a530971b6eb99eed26c26472aaf39b666117.css" />
+</head>
+<body>
+
+<h1>Solve is back...</h1>
+<div class='row'>
+<div class='col-md-6'>
+</div>
+<div class='col-md-4' style='padding-left: 20px;'>
+<b>ได้เวลามาเล่นสนุกกันแล้ว...</b>
+<br>
+Please login to see the problem list
+<br>
+<br>
+<hr>
+<b>You need to login</b>
+<hr>
+<div style='border: solid 1px gray; padding: 4px; background: #eeeeff;'>
+<form class="form-horizontal" action="/grader/login/login" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="Hy5PIKCu9RDWlKjxJZ+d1y6NEXmhSGyroYahhmKbXUigF4wADIM0dRm5sh6sMGAzpKo0LvkfwA8Xois078IC8Q==" />
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="login">Login</label>
+<div class='col-sm-9'>
+<input type="text" name="login" id="login" class="form-control" />
+</div>
+</div>
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="password">Password</label>
+<div class='col-sm-9'>
+<input type="password" name="password" id="password" class="form-control" />
+</div>
+</div>
+<div class='form-group'>
+<div class='col-sm-offset-3 col-sm-9'>
+<input type="submit" name="commit" value="Login" class="btn btn-primary" />
+</div>
+</div>
+</form>
+
+</div>
+<br>
+
+</div>
+</div>
+
+
+</body>
+</html>
