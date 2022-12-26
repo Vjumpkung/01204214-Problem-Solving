@@ -10,7 +10,7 @@
 - throwingcards1
 - broken (must use text file to run program)
 - rails
-- ku01_distinct (solution must be O(n))
+- ku01_distinct (solution must be O(n^2))
 - ku01_cars (optional) (solution must be O(n))
 - necklace (union set disjoint is alternative solution)
 - chains (optional) HARDEST!!!!!!!!
