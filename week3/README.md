@@ -12,6 +12,8 @@
 - box
 - qualitymap
 - jumppoint
+- lemmo (optional) (Got Timeout Punch to my face 5555555) [PPPPPPTTTTTTTTTTTTP]
 
-optional (still not solved(ยังไม่ทำ55555))
-- lemmo
+#### lemmo time execution
+- At 120x120 map it execute time = 4.10428 sec.
+
