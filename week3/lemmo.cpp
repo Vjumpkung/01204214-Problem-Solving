@@ -1,9 +1,11 @@
-#include <ctime>
 #include <iostream>
 
 using namespace std;
 
 char Graph[125][125];
+
+bool visited_1[125][125] = {{false}};
+bool visited_2[125][125] = {{false}};
 
 int col, row;
 
@@ -11,6 +13,7 @@ int mode = 0; // left = 0 right = 1
 
 int lemmo(int r, int c, int mode)
 {
+    visited_1[r][c] = true;
     if (Graph[r][c] == '@')
     {
         return 0;
@@ -24,6 +27,7 @@ int lemmo(int r, int c, int mode)
     if (Graph[r][c] == '.')
     {
         r++;
+        visited_1[r][c] = true;
         return lemmo(r, c, mode);
     }
 
@@ -32,9 +36,11 @@ int lemmo(int r, int c, int mode)
         while (c > 0)
         {
             c--;
+            visited_1[r][c] = true;
             if (Graph[r][c] == '.')
             {
                 r++;
+                visited_1[r][c] = true;
                 break;
             }
             else if (Graph[r][c] == '$')
@@ -58,9 +64,11 @@ int lemmo(int r, int c, int mode)
         while (c < col - 1)
         {
             c++;
+            visited_1[r][c] = true;
             if (Graph[r][c] == '.')
             {
                 r++;
+                visited_1[r][c] = true;
                 break;
             }
             else if (Graph[r][c] == '$')
@@ -84,7 +92,6 @@ int lemmo(int r, int c, int mode)
 
 int main()
 {
-    clock_t tStart = clock();
     cin >> col >> row;
     for (int i = 0; i < row; i++)
     {
@@ -100,13 +107,21 @@ int main()
         count += lemmo(0, i, 1);
     }
 
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            visited_2[i][j] = visited_1[i][j];
+        }
+    }
+
     int max_count = -1;
 
     for (int i = 0; i < row - 1; i++)
     {
         for (int j = 0; j < col; j++)
         {
-            if (Graph[i][j] != '#')
+            if (Graph[i][j] != '#' or !visited_2[i][j])
             {
                 continue;
             }
@@ -126,8 +141,5 @@ int main()
     }
 
     cout << count << " " << max_count;
-
-    // cout << (double)(clock() - tStart) / CLOCKS_PER_SEC << endl;
-
     return 0;
 }

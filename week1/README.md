@@ -2,7 +2,7 @@
 
 ## main topic : introduction to C++
 
-### problems difficulty level (sorted by easy to hard)
+### problems difficulty level (sorted by difficulty)
 - abcd
 - darts
 - gifts

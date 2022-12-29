@@ -2,7 +2,7 @@
 
 ## main topic : linked-list
 
-### problems difficulty level (sorted by easy to hard)
+### problems difficulty level (sorted by difficulty)
 - listwork 1 ( Linked List Practice 1 )
 - listwork 2 ( Linked List Practice 2 )
 - ic
