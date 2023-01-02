@@ -9,7 +9,7 @@ int main()
     int k;
     cin >> s;
     cin >> k;
-    for (int i = 0; i < s.length(); i++)
+    for (uint i = 0; i < s.length(); i++)
     {
         if (s[i] == 'N')
         {
@@ -36,7 +36,6 @@ int main()
     {
         swap(coord[2], coord[3]);
     }
-    int energy = 0;
     while (k != 0)
     {
         if (coord[1] != 0)

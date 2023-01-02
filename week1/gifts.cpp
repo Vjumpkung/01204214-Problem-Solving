@@ -13,7 +13,7 @@ int main()
         cin >> t;
         vec.push_back(t);
     }
-    for (int i = 0; i < vec.size(); i++)
+    for (uint i = 0; i < vec.size(); i++)
     {
         if (vec.at(i) >= 0)
         {

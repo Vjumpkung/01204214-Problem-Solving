@@ -9,7 +9,7 @@ int main()
     int m;
     int mode = 0;
     cin >> s;
-    for (int i = 0; i < s.length(); i++)
+    for (uint i = 0; i < s.length(); i++)
     {
         if (s[i] == 'N')
         {

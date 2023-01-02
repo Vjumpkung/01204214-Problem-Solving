@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string>
 #include <list>
+#include <string>
 
 using namespace std;
 
@@ -12,7 +12,7 @@ int main()
     bool f = false;
     while (getline(cin, s))
     {
-        for (int i = 0; i < s.length(); i++)
+        for (uint i = 0; i < s.length(); i++)
         {
             if (s[i] == '[')
             {
