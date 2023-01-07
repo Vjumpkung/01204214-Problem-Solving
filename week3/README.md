@@ -15,5 +15,5 @@
 - lemmo (optional) (Got Timeout Punch to my face 5555555) [PPPPPPPTTTPPPPPPPPP]
 
 #### lemmo time execution
-- At 120x120 map it execute time = 4.10428 sec.
+- At 120x120 map it execute time = 1.6 sec.
 
