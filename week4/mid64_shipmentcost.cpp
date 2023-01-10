@@ -11,11 +11,11 @@ queue<int> q;
 
 void bfs(vector<int> from, int *travel, vector<vector<int>> &Graph, int GraphSize, vector<int> &factory)
 {
-	for(auto &i : from)
-	{
-		q.push(i);	
-		travel[i] = 1;
-	}
+    for(auto &i : from)
+    {
+	q.push(i);	
+	travel[i] = 1;
+    }
     vector<int> dist;
     dist.resize(GraphSize, 0);
     while (!q.empty())
@@ -67,7 +67,7 @@ int main()
         lst[val - 1] = INF;
         factory.push_back(val - 1);
     }
-	bfs(village, travel, graph, graph.size(), factory);
+    bfs(village, travel, graph, graph.size(), factory);
     for (auto &i : factory)
     {
         cout << lst[i] << "\n";
