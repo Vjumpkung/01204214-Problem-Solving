@@ -5,6 +5,7 @@
 ### problems difficulty level (sorted by difficulty) (finished)
 - intsch (greedy)
 - maxlate (greedy)
+- mid592_maze (optional) (ใช้ DFS)
 - topo
 - uva10305_orderingtasks
 - bipartite
