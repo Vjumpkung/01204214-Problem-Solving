@@ -8,7 +8,7 @@
 - topo
 - uva10305_orderingtasks
 - bipartite
-- mid64_shippingcost
+- mid64_shipmentcost
 - fin_toofast
 
 ### not finish
