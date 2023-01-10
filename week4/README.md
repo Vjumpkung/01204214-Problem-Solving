@@ -12,4 +12,4 @@
 - fin_toofast
 
 ### not finish
-- mid62_ttt
+- mid62_ttt `[ P----PP--P ]`
