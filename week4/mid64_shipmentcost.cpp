@@ -6,11 +6,16 @@
 using namespace std;
 
 int lst[300010];
+int travel[300000] = {0};
+queue<int> q;
 
-void bfs(int from, int *travel, vector<vector<int>> &Graph, int GraphSize, vector<int> &factory)
+void bfs(vector<int> from, int *travel, vector<vector<int>> &Graph, int GraphSize, vector<int> &factory)
 {
-    queue<int> q;
-    q.push(from);
+	for(auto &i : from)
+	{
+		q.push(i);	
+		travel[i] = 1;
+	}
     vector<int> dist;
     dist.resize(GraphSize, 0);
     while (!q.empty())
@@ -62,11 +67,7 @@ int main()
         lst[val - 1] = INF;
         factory.push_back(val - 1);
     }
-    for (auto &i : village)
-    {
-        int travel[n] = {0};
-        bfs(i, travel, graph, graph.size(), factory);
-    }
+	bfs(village, travel, graph, graph.size(), factory);
     for (auto &i : factory)
     {
         cout << lst[i] << "\n";
