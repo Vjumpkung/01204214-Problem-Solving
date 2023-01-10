@@ -8,8 +8,8 @@
 - topo
 - uva10305_orderingtasks
 - bipartite
+- mid64_shippingcost
 - fin_toofast
 
 ### not finish
 - mid62_ttt
-- mid64_shipmentcost `[PPPPP[TP][PT][PT][PT][PT]]`
