@@ -14,3 +14,4 @@
 
 ### not finish
 - mid62_ttt `[ P----PP--P ]`
+- mid61_dig `[ xPPPPPPPPP ]` why?
