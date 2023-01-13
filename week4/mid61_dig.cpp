@@ -1,98 +1,19 @@
 #include <iostream>
 #include <queue>
+#include <utility>
+#include <vector>
 #define INF 0xfffffff
 using namespace std;
 
 int r, c;
 int r1, c1, r2, c2;
 char graph[100][100];
-int visited[2][100][100];
-int dist[2][100][100];
-struct point
-{
-    int current_row;
-    int current_col;
-    int distance;
-    int dig;
-};
-queue<point> q;
-
-void bfs()
-{
-    q.push({r1, c1, 0, 0});
-    while (not q.empty())
-    {
-        int current_row, current_col, isDig, distance;
-        current_row = q.front().current_row;
-        current_col = q.front().current_col;
-        isDig = q.front().dig;
-        distance = q.front().distance;
-        q.pop();
-        if (isDig)
-        {
-            visited[1][current_row][current_col] = 1;
-            if (dist[1][current_row][current_col] > distance)
-            {
-                dist[1][current_row][current_col] = distance;
-            }
-        }
-        else
-        {
-            visited[0][current_row][current_col] = 1;
-            if (dist[0][current_row][current_col] > distance)
-            {
-                dist[0][current_row][current_col] = distance;
-            }
-        }
-        if (current_row == r2 and current_col == c2)
-        {
-            break;
-        }
-        if (isDig == 0 and current_row + 2 < r and (not visited[0][current_row + 1][current_col]) and graph[current_row + 1][current_col] == '*' and graph[current_row + 2][current_col] == '.')
-        {
-            q.push({current_row + 1, current_col, distance + 1, 1});
-        }
-        if (current_row + 1 < r and (not visited[isDig][current_row + 1][current_col]) and graph[current_row + 1][current_col] == '.')
-        {
-            q.push({current_row + 1, current_col, distance + 1, isDig});
-        }
-        if (isDig == 0 and current_row - 2 >= 0 and (not visited[0][current_row - 1][current_col]) and graph[current_row - 1][current_col] == '*' and graph[current_row - 2][current_col] == '.')
-        {
-            q.push({current_row - 1, current_col, distance + 1, 1});
-        }
-        if (current_row - 1 >= 0 and (not visited[isDig][current_row - 1][current_col]) and graph[current_row - 1][current_col] == '.')
-        {
-            q.push({current_row - 1, current_col, distance + 1, isDig});
-        }
-        if (isDig == 0 and current_col + 2 < c and (not visited[0][current_row][current_col + 1]) and graph[current_row][current_col + 1] == '*' and graph[current_row][current_col + 2] == '.')
-        {
-            q.push({current_row, current_col + 1, distance + 1, 1});
-        }
-        if (current_col + 1 < c and (not visited[isDig][current_row][current_col + 1]) and graph[current_row][current_col + 1] == '.')
-        {
-            q.push({current_row, current_col + 1, distance + 1, isDig});
-        }
-        if (isDig == 0 and current_col - 2 >= 0 and (not visited[0][current_row][current_col - 1]) and graph[current_row][current_col - 1] == '*' and graph[current_row][current_col - 2] == '.')
-        {
-            q.push({current_row, current_col - 1, distance + 1, 1});
-        }
-        if (current_col - 1 >= 0 and (not visited[isDig][current_row][current_col - 1]) and graph[current_row][current_col - 1] == '.')
-        {
-            q.push({current_row, current_col - 1, distance + 1, isDig});
-        }
-    }
-    int da = dist[0][r2][c2];
-    int db = dist[1][r2][c2];
-    if (da == INF and db == INF)
-    {
-        cout << -1;
-    }
-    else
-    {
-        cout << (da > db ? db : da);
-    }
-    cout << endl;
-}
+int visited[100][100];
+int dist[100][100];
+int minDis[100][100];
+int coord[2][4] = {{1, -1, 0, 0}, {0, 0, 1, -1}};
+vector<pair<int, int>> vec;
+queue<pair<int, int>> q;
 
 int main()
 {
@@ -107,12 +28,71 @@ int main()
         for (int j = 0; j < c; j++)
         {
             cin >> graph[i][j];
-            visited[0][i][j] = 0;
-            visited[1][i][j] = 0;
-            dist[0][i][j] = INF;
-            dist[1][i][j] = INF;
+            visited[i][j] = 0;
+            dist[i][j] = 0;
+            minDis[i][j] = INF;
+            if (graph[i][j] == '*')
+            {
+                vec.push_back({i, j});
+                vec.push_back({i, j});
+            }
         }
     }
-    bfs();
+    int mode = 0;
+    for (auto &i : vec)
+    {
+        for (int k = 0; k < r; k++)
+        {
+            for (int j = 0; j < c; j++)
+            {
+                visited[k][j] = 0;
+                dist[k][j] = 0;
+            }
+        }
+        if (mode == 0 and graph[i.first - 1][i.second] == '.' and graph[i.first + 1][i.second] == '.')
+        {
+            graph[i.first][i.second] = '.';
+        }
+        else if (mode == 1 and graph[i.first][i.second + 1] == '.' and graph[i.first][i.second - 1] == '.')
+        {
+            graph[i.first][i.second] = '.';
+        }
+        q.push({r1, c1});
+        while (not q.empty())
+        {
+            int cr, cc;
+            cr = q.front().first;
+            cc = q.front().second;
+            visited[cr][cc] = 1;
+            q.pop();
+            if (cr == r2 and cc == c2)
+            {
+                break;
+            }
+            for (int j = 0; j < 4; j++)
+            {
+                if (graph[cr + coord[0][j]][cc + coord[1][j]] == '.' and not visited[cr + coord[0][j]][cc + coord[1][j]])
+                {
+                    dist[cr + coord[0][j]][cc + coord[1][j]] = dist[cr][cc] + 1;
+                    visited[cr + coord[0][j]][cc + coord[1][j]] = 1;
+                    q.push({cr + coord[0][j], cc + coord[1][j]});
+                }
+            }
+        }
+        if (minDis[r2][c2] > dist[r2][c2] and dist[r2][c2] > 0)
+        {
+            minDis[r2][c2] = dist[r2][c2];
+        }
+        graph[i.first][i.second] = '*';
+        mode = (mode + 1) % 2;
+    }
+    if (minDis[r2][c2] == INF)
+    {
+        cout << -1 << "\n";
+    }
+    else
+    {
+        cout << minDis[r2][c2] << "\n";
+    }
     return 0;
 }

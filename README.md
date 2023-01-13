@@ -12,10 +12,11 @@
  - A : Because I am typing English faster than Thai 555555.
  - Q : What is c++ standard you used?
  - A : c++11
+
 ## Tips for this subject
  - recommended to create textfile for input and run like this output will automatically generate in same directory
  ```bash
-a.out < text.txt > out.txt
+a.out < t.txt > o.txt
  ```
 
 ## How to complied and run it
@@ -23,13 +24,13 @@ a.out < text.txt > out.txt
 ```bash
 g++ -std=c++11 -Wall -o file.out file.cpp && echo complete && file.exe < t.txt > o.txt
 ```
-- Windows
+- Windows (cmd only)
 ```bash
 g++ -std=c++11 -Wall -o file.exe file.cpp && file.exe < t.txt > o.txt
 ```
 
 ## Disclaimer
-if you use clang as complier (you can check by using these command) clang doesn't have <bits/stdc++.h> header because it's not standard header.
+if you use clang as complier (you can check by using these command) clang doesn't have <bits/stdc++.h> header because it's not C++ standard header.
 ```bash
 $ g++ --version
 Apple LLVM version 9.1.0 (clang-902.0.39.1)

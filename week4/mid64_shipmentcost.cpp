@@ -11,10 +11,10 @@ queue<int> q;
 
 void bfs(vector<int> from, int *travel, vector<vector<int>> &Graph, int GraphSize, vector<int> &factory)
 {
-    for(auto &i : from)
+    for (auto &i : from)
     {
-	q.push(i);	
-	travel[i] = 1;
+        q.push(i);
+        travel[i] = 1;
     }
     vector<int> dist;
     dist.resize(GraphSize, 0);
