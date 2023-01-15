@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <iostream>
 #include <queue>
 #include <utility>
@@ -8,6 +7,7 @@ using namespace std;
 
 int vertex, edges;
 vector<pair<int, int>> v;
+
 bool is_bipartite(vector<vector<int>> &Graph, int start, int *seek)
 {
     queue<int> q;
@@ -49,7 +49,7 @@ bool isBipartite(int mode, pair<int, int> select)
     Graph.resize(vertex);
     for (auto &i : v)
     {
-        if (select.first == i.first or select.first == i.second or select.second == i.first or select.second == i.second)
+        if ((select.first == i.first and select.second == i.second) or (select.first == i.second and select.second == i.first))
         {
             continue;
         }
@@ -82,7 +82,6 @@ bool isBipartite(int mode, pair<int, int> select)
 int main()
 {
     cin >> vertex >> edges;
-
     for (int i = 0; i < edges; i++)
     {
         int from, too;
