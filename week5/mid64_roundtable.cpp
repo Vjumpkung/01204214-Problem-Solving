@@ -31,18 +31,7 @@ int main()
             }
             s++;
         }
-
-        cout << endl;
-        if (count > max_sequence)
-        {
-            for (auto i : l)
-            {
-                cout << i << " ";
-            }
-            max_sequence = count;
-            cout << " = " << max_sequence;
-            cout << endl;
-        }
+        max_sequence = max(count, max_sequence);
     }
     cout << max_sequence << endl;
     return 0;
