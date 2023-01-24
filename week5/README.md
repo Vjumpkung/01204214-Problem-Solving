@@ -11,3 +11,7 @@
 - fin59_hos2 (bfs n times)
 - mid59_jumpgame (bfs possible)
 - fin_magicroads (some tricky :P)
+
+### OPTIONAL
+
+- mid64_roundtable (`PPPPPTTTTT`)
