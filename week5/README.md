@@ -14,4 +14,4 @@
 
 ### OPTIONAL
 
-- mid64_roundtable (`PPPPPTTTTT`)
+- mid64_roundtable **(OPTIONAL)**
