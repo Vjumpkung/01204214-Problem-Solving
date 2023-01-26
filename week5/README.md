@@ -12,6 +12,7 @@
 - mid59_jumpgame (bfs possible)
 - fin_magicroads (some tricky :P)
 
-### OPTIONAL
+### OPTIONAL (sorted by difficulty)
 
 - mid64_roundtable **(OPTIONAL)**
+- fin61_spread **(OPTIONAL)**
