@@ -16,3 +16,4 @@
 
 - mid64_roundtable **(OPTIONAL)**
 - fin61_spread **(OPTIONAL)**
+- uva1193_radar **(OPTIONAL)**
