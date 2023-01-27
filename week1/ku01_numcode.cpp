@@ -75,7 +75,7 @@ int main()
             }
         }
     }
-    for (uint i = 0; i < b.size(); i++)
+    for (unsigned int i = 0; i < b.size(); i++)
     {
         cout << b.at(i) << "\n";
     }

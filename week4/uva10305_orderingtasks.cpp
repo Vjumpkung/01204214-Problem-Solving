@@ -46,7 +46,7 @@ int main()
             int current = q.front();
             q.pop();
             ans.push_back(current + 1);
-            for (uint i = 0; i < graph.at(current).size(); i++)
+            for (unsigned int i = 0; i < graph.at(current).size(); i++)
             {
                 in_deg[graph.at(current).at(i)]--;
                 if (in_deg[graph.at(current).at(i)] == 0)
@@ -55,7 +55,7 @@ int main()
                 }
             }
         }
-        for (uint i = 0; i < ans.size() - 1; i++)
+        for (unsigned int i = 0; i < ans.size() - 1; i++)
         {
             cout << ans[i] << " ";
         }

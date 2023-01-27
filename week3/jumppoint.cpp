@@ -22,7 +22,7 @@ void bfs(int from, int too, int *travel, vector<int> *Graph, int GraphSize)
         int current = q.front();
         q.pop();
         travel[current] = 1;
-        for (uint i = 0; i < Graph[current].size(); i++)
+        for (unsigned int i = 0; i < Graph[current].size(); i++)
         {
             if (!travel[Graph[current].at(i)])
             {
@@ -68,9 +68,9 @@ int main()
     }
     p.push_back({100, 100});
     int dispower2 = w * w;
-    for (uint i = 0; i < p.size(); i++)
+    for (unsigned int i = 0; i < p.size(); i++)
     {
-        for (uint j = i; j < p.size(); j++)
+        for (unsigned int j = i; j < p.size(); j++)
         {
             int z = pow(p.at(i).first - p.at(j).first, 2) + pow(p.at(i).second - p.at(j).second, 2);
             if (i == j)

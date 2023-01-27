@@ -12,7 +12,7 @@ bool topo_sort(vector<vector<int>> &Graph, list<int> &in_ver, vector<int> &topo,
         int current = in_ver.front();
         in_ver.pop_front();
         topo.push_back(current);
-        for (uint i = 0; i < Graph.at(current).size(); i++)
+        for (unsigned int i = 0; i < Graph.at(current).size(); i++)
         {
             in_degree[Graph.at(current).at(i)]--;
             if (in_degree[Graph.at(current).at(i)] == 0)

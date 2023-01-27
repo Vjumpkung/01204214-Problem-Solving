@@ -28,12 +28,12 @@ int main()
         }
         sort(coord.begin() + 1, coord.end());
         int cur_l = 0, reach = 0;
-        uint i = 1;
+        unsigned int i = 1;
         vector<pair<int, int>> segments;
         while (reach < m)
         {
             int newLeft = cur_l;
-            uint far = 0;
+            unsigned int far = 0;
             for (; i < coord.size(); i++)
             {
                 if (coord.at(i).first > cur_l)

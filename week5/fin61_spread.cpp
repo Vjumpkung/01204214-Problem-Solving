@@ -56,7 +56,7 @@ int main()
     vector<edge> select_edge;
     s.resize(n);
     double max_time = 0;
-    for (uint i = 0; i < s.size(); i++)
+    for (unsigned int i = 0; i < s.size(); i++)
     {
         s[i] = i;
     }

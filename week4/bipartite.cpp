@@ -10,7 +10,7 @@ public:
     int is_bipartite(vector<vector<int>> &Graph, int start, int *arr)
     {
         queue<int> q;
-        for (uint i = start; i < Graph.size(); i++)
+        for (unsigned int i = start; i < Graph.size(); i++)
         {
             if (Graph.at(i).size() != 0 && arr[i] == -1)
             {
@@ -23,7 +23,7 @@ public:
         {
             int current = q.front();
             q.pop();
-            for (uint i = 0; i < Graph.at(current).size(); i++)
+            for (unsigned int i = 0; i < Graph.at(current).size(); i++)
             {
                 if (current == Graph.at(current).at(i))
                 {
@@ -46,11 +46,11 @@ public:
     {
         int logic = 1;
         int arr[100000];
-        for (uint i = 0; i < Graph.size(); i++)
+        for (unsigned int i = 0; i < Graph.size(); i++)
         {
             arr[i] = -1;
         }
-        for (uint i = 0; i < Graph.size(); i++)
+        for (unsigned int i = 0; i < Graph.size(); i++)
         {
             if (Graph.at(i).size() != 0 && arr[i] == -1)
             {

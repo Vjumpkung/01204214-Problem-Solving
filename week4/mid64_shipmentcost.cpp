@@ -23,7 +23,7 @@ void bfs(vector<int> from, int *travel, vector<vector<int>> &Graph, int GraphSiz
         int current = q.front();
         q.pop();
         travel[current] = 1;
-        for (uint i = 0; i < Graph[current].size(); i++)
+        for (unsigned int i = 0; i < Graph[current].size(); i++)
         {
             if (!travel[Graph[current].at(i)])
             {
