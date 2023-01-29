@@ -15,4 +15,4 @@
 - mid61_dig (brute force possible) **OPTIONAL**
 - fin_toofast (Shortest Path 2 มิติ)
 - mid64_redblackbridges (Shortest Path 3 สี) **OPTIONAL**
-- stardrawing (Thx to someone who help me.)
+- stardrawing (Thx to someone who help me.) **OPTIONAL**
