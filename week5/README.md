@@ -14,6 +14,7 @@
 
 ### OPTIONAL (sorted by difficulty)
 
-- mid64_roundtable **(OPTIONAL)**
-- fin61_spread **(OPTIONAL)**
-- uva1193_radar **(OPTIONAL)**
+- fin59_2_hos **(bfs multisource)**
+- mid64_roundtable **(Greedy OPTIONAL)**
+- fin61_spread **(Minimum Spanning Tree OPTIONAL)**
+- uva1193_radar **(greedy OPTIONAL)**
