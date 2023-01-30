@@ -14,3 +14,8 @@
 # Built Visual Studio Code Extensions
 *.vsix
 *.txt
+*.in
+*.out
+
+# custom_name
+wip*.cpp
