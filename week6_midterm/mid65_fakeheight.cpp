@@ -3,7 +3,7 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#define INF 0xfffffffffffffff;
+#define INF 0xfffffffffffffff
 
 using namespace std;
 
