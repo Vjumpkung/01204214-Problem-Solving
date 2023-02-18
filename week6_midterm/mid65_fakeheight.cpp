@@ -56,8 +56,22 @@ int bsearch(vector<pair<lld, lld>> &sorted_vec, lld num, int numidx, lld center,
         }
         if (not(move_failed_1 or move_failed_2))
         {
-            lld tmp1 = abs(arr[numidx - 1] - sorted_vec[mid + running].first) + abs(arr[numidx + 1] - sorted_vec[mid + running].first);
-            lld tmp2 = abs(arr[numidx - 1] - sorted_vec[mid - running2].first) + abs(arr[numidx + 1] - sorted_vec[mid - running2].first);
+            lld tmp1 = 0, tmp2 = 0;
+            if (numidx == 0)
+            {
+                tmp1 = abs(arr[numidx + 1] - sorted_vec[mid + running].first);
+                tmp2 = abs(arr[numidx + 1] - sorted_vec[mid - running2].first);
+            }
+            else if (numidx > 0 and numidx < n - 1)
+            {
+                tmp1 = abs(arr[numidx - 1] - sorted_vec[mid + running].first) + abs(arr[numidx + 1] - sorted_vec[mid + running].first);
+                tmp2 = abs(arr[numidx - 1] - sorted_vec[mid - running2].first) + abs(arr[numidx + 1] - sorted_vec[mid - running2].first);
+            }
+            else
+            {
+                tmp1 = abs(arr[numidx - 1] - sorted_vec[mid + running].first);
+                tmp2 = abs(arr[numidx - 1] - sorted_vec[mid - running2].first);
+            }
             if (tmp1 > tmp2)
             {
                 return mid - running2;
