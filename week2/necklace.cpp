@@ -3,6 +3,31 @@
 
 using namespace std;
 
+int n, a, b;
+int arr[300000];
+list<int> v[300000];
+
+void printi(int num)
+{
+    int i = num;
+    int t;
+    char cx;
+    int a = 0;
+    char temp[100];
+    while (i != 0)
+    {
+        t = i % 10;
+        i = i / 10;
+        temp[a] = t + '0';
+        a++;
+    }
+    for (i = a - 1; i >= 0; i--)
+    {
+        cx = temp[i];
+        putchar(cx);
+    }
+}
+
 int find_set(int v, int *arr)
 {
     if (v == arr[v])
@@ -26,10 +51,8 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int n, a, b;
+    cout.tie(NULL);
     cin >> n;
-    int arr[n];
-    list<int> v[n];
     for (int i = 0; i < n; i++)
     {
         v[i].push_back(i + 1);
@@ -52,7 +75,8 @@ int main()
     }
     for (auto x : v[find_set(0, arr)])
     {
-        cout << x << " ";
+        printi(x);
+        putchar(' ');
     }
     return 0;
 }
