@@ -49,7 +49,7 @@ void vertical(int i, int low, int high, int total)
 
 void horizontal(int i, int low, int high, int total)
 {
-    mid = floor(abs(high + low) / 2);
+    int mid = floor(abs(high + low) / 2);
     if (abs(low - high) == 1 and total == 2)
     {
         for (int j = 0; j < ansCount; j++)
@@ -71,7 +71,7 @@ void horizontal(int i, int low, int high, int total)
     }
     else
     {
-        temp = traffic_query(low, i, mid, i);
+        int temp = traffic_query(low, i, mid, i);
         if (temp > abs(low - mid))
         {
             horizontal(i, low, mid, temp);
