@@ -1,22 +1,28 @@
 #include <iostream>
+#include <map>
 #include <vector>
 
 using namespace std;
 
-int dp[100001][2];
+map<pair<int, int>, int> memo;
 
-int tarotora(int idx, int max_diff, vector<pair<int, int>> &stage, int a_count, int b_count, int total)
+int tarotora(int idx, int max_diff, vector<pair<int, int>> &stage, int diff)
 {
-    if (abs(a_count - b_count) > max_diff)
+    if (diff > max_diff || diff < max_diff * -1)
     {
         return 0xfffffff;
     }
     if (idx == stage.size())
     {
-        return total;
+        return 0;
     }
-    int a = tarotora(idx + 1, max_diff, stage, a_count + 1, b_count, total + stage[idx].first);
-    int b = tarotora(idx + 1, max_diff, stage, a_count, b_count + 1, total + stage[idx].second);
+    if (memo.find({idx, diff}) != memo.end())
+    {
+        return memo[{idx, diff}];
+    }
+    int a = stage[idx].first + tarotora(idx + 1, max_diff, stage, diff + 1);
+    int b = stage[idx].second + tarotora(idx + 1, max_diff, stage, diff - 1);
+    memo[{idx, diff}] = min(a, b);
     return min(a, b);
 }
 
@@ -34,8 +40,9 @@ int main()
             cin >> x >> y;
             a.push_back({x, y});
         }
-        cout << tarotora(0, k, a, 0, 0, 0) << endl;
+        cout << tarotora(0, k, a, 0) << endl;
         a.clear();
+        memo.clear();
     }
     return 0;
 }
