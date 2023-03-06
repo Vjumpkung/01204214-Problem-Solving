@@ -1,16 +1,10 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
-#include <utility>
 #include <vector>
+#include <tuple>
 
 using namespace std;
-
-struct edge
-{
-    int from, too;
-    double weight;
-};
 
 int find_set(int v, vector<int> &arr)
 {
@@ -29,16 +23,11 @@ void union_sets(int a, int b, vector<int> &arr)
     }
 }
 
-bool cmp(edge a, edge b)
-{
-    return a.weight < b.weight;
-}
-
 int main()
 {
     int n, m;
     vector<int> speed;
-    vector<edge> edge_lst;
+    vector<tuple<double, int, int>> edge_lst;
     cin >> n >> m;
     speed.resize(n);
     for (int i = 0; i < n; i++)
@@ -49,11 +38,11 @@ int main()
     {
         int f, t, w;
         cin >> f >> t >> w;
-        edge_lst.push_back({f - 1, t - 1, ceil((0.0 + w) / (speed.at(f - 1) + speed.at(t - 1)))});
+        edge_lst.push_back({ceil((0.0 + w) / (speed.at(f - 1) + speed.at(t - 1))), f - 1, t - 1});
     }
-    sort(edge_lst.begin(), edge_lst.end(), cmp);
+    sort(edge_lst.begin(), edge_lst.end());
     vector<int> s;
-    vector<edge> select_edge;
+    vector<tuple<double, int, int>> select_edge;
     s.resize(n);
     double max_time = 0;
     for (unsigned int i = 0; i < s.size(); i++)
@@ -62,13 +51,13 @@ int main()
     }
     for (auto i : edge_lst)
     {
-        int u = find_set(i.from, s);
-        int v = find_set(i.too, s);
+        int u = find_set(get<1>(i), s);
+        int v = find_set(get<2>(i), s);
         if (u != v)
         {
             select_edge.push_back(i);
             union_sets(u, v, s);
-            max_time = max(max_time, i.weight);
+            max_time = max(max_time, get<0>(i));
         }
     }
     cout << (int)max_time << "\n";
