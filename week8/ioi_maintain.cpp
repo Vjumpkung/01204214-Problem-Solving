@@ -1,11 +1,10 @@
 #include <algorithm>
 #include <iostream>
-#include <set>
 #include <vector>
 
 using namespace std;
 
-set<pair<int, pair<int, int>>> edges;
+vector<pair<int, pair<int, int>>> edges;
 int vertex, edge;
 
 int find_set(int v, vector<int> &arr)
@@ -27,25 +26,35 @@ void union_sets(int a, int b, vector<int> &arr)
 
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     cin >> vertex >> edge;
     vector<int> arr(vertex);
     for (int i = 0; i < edge; i++)
     {
         int f, t, w;
         cin >> f >> t >> w;
-        edges.insert({w, {f - 1, t - 1}});
+        edges.push_back({w, {f - 1, t - 1}});
         for (int i = 0; i < vertex; i++)
         {
             arr[i] = i;
         }
         int cost = 0;
+        sort(edges.begin(), edges.end());
+        int union_count = 0;
         for (auto &i : edges)
         {
+            if (union_count == vertex - 1)
+            {
+                break;
+            }
             int a = find_set(i.second.first, arr);
             int b = find_set(i.second.second, arr);
             if (a != b)
             {
                 union_sets(a, b, arr);
+                union_count++;
                 cost += i.first;
             }
         }
