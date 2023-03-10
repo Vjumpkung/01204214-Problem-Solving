@@ -1,11 +1,13 @@
-#include <iostream>
+#include <cstdio>
 #include <list>
 
 using namespace std;
 
+const int MAX_N = 300000;
+
 int n, a, b;
-int arr[300000];
-list<int> v[300000];
+int arr[MAX_N];
+list<int> v[MAX_N];
 
 void printi(int num)
 {
@@ -26,6 +28,17 @@ void printi(int num)
         cx = temp[i];
         putchar(cx);
     }
+}
+
+int geti()
+{
+    int i = 0;
+    char c;
+    while ((c = getchar()) != ' ' && c != '\n')
+    {
+        i = i * 10 + c - '0';
+    }
+    return i;
 }
 
 int find_set(int v, int *arr)
@@ -49,10 +62,7 @@ void union_sets(int a, int b, int *arr)
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    cin >> n;
+    n = geti();
     for (int i = 0; i < n; i++)
     {
         v[i].push_back(i + 1);
@@ -60,9 +70,10 @@ int main()
     }
     for (int i = 0; i < n - 1; i++)
     {
-        cin >> a >> b;
+        a = geti();
+        b = geti();
         union_sets(b - 1, a - 1, arr);
-        list<int>::iterator it = v[find_set(b - 1, arr)].begin();
+        auto it = v[find_set(b - 1, arr)].begin();
         while (it != v[arr[b - 1]].end())
         {
             if (*it == b)
