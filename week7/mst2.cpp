@@ -1,18 +1,19 @@
 #include <algorithm>
 #include <iostream>
+#include <tuple>
 #include <vector>
+#define fastio                   \
+    ios::sync_with_stdio(false); \
+    cin.tie(NULL);               \
+    cout.tie(NULL);
 
 using namespace std;
 
-struct edge
-{
-    int a, b, w;
-};
+const int MAX_N = 100001;
 
-bool cmp(edge a, edge b)
-{
-    return a.w < b.w;
-}
+int n, m;
+vector<int> parent(MAX_N);
+vector<tuple<int, int, int>> adj;
 
 int find_set(int v, vector<int> &arr)
 {
@@ -31,34 +32,41 @@ void union_sets(int a, int b, vector<int> &arr)
     }
 }
 
+void init_set(vector<int> &parent)
+{
+    for (int i = 0; i < parent.size(); i++)
+    {
+        parent[i] = i;
+    }
+}
+
 int main()
 {
-    int n, m;
+    fastio;
     cin >> n >> m;
-    vector<edge> adj;
     for (int i = 0; i < m; i++)
     {
         int a, b, w;
         cin >> a >> b >> w;
-        adj.push_back({a - 1, b - 1, w});
+        adj.push_back({w, a - 1, b - 1});
     }
-    sort(adj.begin(), adj.end(), cmp);
-    vector<int> parent(n);
-    for (int i = 0; i < n; i++)
-    {
-        parent[i] = i;
-    }
+    sort(adj.begin(), adj.end());
+    init_set(parent);
     int sum = 0;
+    int union_count = 0;
     for (int i = 0; i < m; i++)
     {
-        int a = find_set(adj[i].a, parent);
-        int b = find_set(adj[i].b, parent);
+        if (union_count == n - 1)
+            break;
+        int a = find_set(get<1>(adj[i]), parent);
+        int b = find_set(get<2>(adj[i]), parent);
         if (a != b)
         {
-            sum += adj[i].w;
+            sum += get<0>(adj[i]);
             union_sets(a, b, parent);
+            union_count++;
         }
     }
-    cout << sum << endl;
+    cout << sum << "\n";
     return 0;
 }

@@ -1,6 +1,16 @@
 #include <iostream>
+#define fastio                   \
+    ios::sync_with_stdio(false); \
+    cin.tie(NULL);               \
+    cout.tie(NULL);
 
 using namespace std;
+
+const int MAX_N = 100001;
+
+int n, q;
+int arr[MAX_N];
+int set_size[MAX_N];
 
 int find_set(int x, int *parent)
 {
@@ -8,28 +18,45 @@ int find_set(int x, int *parent)
     {
         return x;
     }
-    else
-    {
-        return parent[x] = find_set(parent[x], parent);
-    }
+    parent[x] = find_set(parent[x], parent);
+    return parent[x];
 }
 
 void union_set(int x, int y, int *parent)
 {
-    parent[x] = y;
+    int a = find_set(x, parent);
+    int b = find_set(y, parent);
+    if (set_size[a] > set_size[b])
+    {
+        swap(a, b);
+    }
+    parent[a] = b;
+    set_size[b] += set_size[a];
+}
+
+void init_set(int *parent)
+{
+    for (int i = 0; i < n; i++)
+    {
+        parent[i] = i;
+        set_size[i] = 1;
+    }
+}
+
+void print(string s)
+{
+    for (int i = 0; i < s.length(); i++)
+    {
+        putchar(s[i]);
+    }
+    putchar('\n');
 }
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    int n, q;
+    fastio;
     cin >> n >> q;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-    {
-        arr[i] = i;
-    }
+    init_set(arr);
     for (int i = 0; i < q; i++)
     {
         char c;
@@ -37,25 +64,25 @@ int main()
         cin >> c >> a >> b;
         int x = find_set(a - 1, arr);
         int y = find_set(b - 1, arr);
-        if (c == 'q')
+        switch (c)
         {
+        case 'q':
             if (x == y)
             {
-                cout << "yes"
-                     << "\n";
+                print("yes");
             }
             else
             {
-                cout << "no"
-                     << "\n";
+                print("no");
             }
-        }
-        else
-        {
+            break;
+
+        case 'c':
             if (x != y)
             {
                 union_set(x, y, arr);
             }
+            break;
         }
     }
     return 0;

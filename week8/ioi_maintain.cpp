@@ -1,10 +1,51 @@
 #include <algorithm>
-#include <iostream>
+#include <set>
 #include <vector>
+#include <cstdio>
 
 using namespace std;
 
-vector<pair<int, pair<int, int>>> edges;
+void printi(int num, char end)
+{
+    if (num == -1)
+    {
+        putchar('-');
+        putchar('1');
+        putchar(end);
+        return;
+    }
+    int i = num;
+    int t;
+    char cx;
+    int a = 0;
+    char temp[100];
+    while (i != 0)
+    {
+        t = i % 10;
+        i = i / 10;
+        temp[a] = t + '0';
+        a++;
+    }
+    for (i = a - 1; i >= 0; i--)
+    {
+        cx = temp[i];
+        putchar(cx);
+    }
+    putchar(end);
+}
+
+int geti()
+{
+    int i = 0;
+    char c;
+    while ((c = getchar()) != ' ' && c != '\n')
+    {
+        i = i * 10 + c - '0';
+    }
+    return i;
+}
+
+set<pair<int, pair<int, int>>> edges;
 int vertex, edge;
 
 int find_set(int v, vector<int> &arr)
@@ -24,24 +65,28 @@ void union_sets(int a, int b, vector<int> &arr)
     }
 }
 
+void init_set(vector<int> &parent)
+{
+    for (int i = 0; i < parent.size(); i++)
+    {
+        parent[i] = i;
+    }
+}
+
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    cin >> vertex >> edge;
+    vertex = geti();
+    edge = geti();
     vector<int> arr(vertex);
     for (int i = 0; i < edge; i++)
     {
         int f, t, w;
-        cin >> f >> t >> w;
-        edges.push_back({w, {f - 1, t - 1}});
-        for (int i = 0; i < vertex; i++)
-        {
-            arr[i] = i;
-        }
+        f = geti();
+        t = geti();
+        w = geti();
+        edges.insert({w, {f - 1, t - 1}});
+        init_set(arr);
         int cost = 0;
-        sort(edges.begin(), edges.end());
         int union_count = 0;
         for (auto &i : edges)
         {
@@ -69,7 +114,7 @@ int main()
                 cost = -1;
             }
         }
-        cout << cost << "\n";
+        printi(cost, '\n');
     }
     return 0;
 }

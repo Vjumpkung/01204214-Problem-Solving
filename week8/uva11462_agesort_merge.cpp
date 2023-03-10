@@ -1,11 +1,12 @@
-#include <iostream>
+#include <stdio.h>
+#include <string.h>
 
-using namespace std;
-
+int i, t, j, k, a;
+int minn;
 short arr[2000000];
 short l[1000000], r[1000000];
 
-void printi(int num)
+void printi(int num, char end)
 {
     int i = num;
     int t;
@@ -24,6 +25,18 @@ void printi(int num)
         cx = temp[i];
         putchar(cx);
     }
+    putchar(end);
+}
+
+int geti()
+{
+    int i = 0;
+    char c;
+    while ((c = getchar()) != ' ' && c != '\n')
+    {
+        i = i * 10 + c - '0';
+    }
+    return i;
 }
 
 void Merge(int start, int middle, int end)
@@ -72,39 +85,50 @@ void MergeSort(int start, int end)
 {
     int size = end - start + 1;
     int middle;
-    if (size > 1)
+    for (int i = 1; i <= size; i *= 2)
     {
-        middle = (start + end) / 2;
-        MergeSort(start, middle);
-        MergeSort(middle + 1, end);
-        Merge(start, middle, end);
+        for (int j = start; j < end; j += 2 * i)
+        {
+            middle = j + i - 1;
+            if (middle < end)
+            {
+                minn = j + 2 * i - 1 < end ? j + 2 * i - 1 : end;
+                Merge(j, middle, minn);
+            }
+        }
     }
 }
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
     while (1)
     {
-        int n;
-        cin >> n;
-        if (n == 0)
+        i = geti();
+        if (i == 0)
         {
             break;
         }
-        for (int i = 0; i < n; i++)
+        else
         {
-            cin >> arr[i];
+            a = -1;
+            for (j = 0; j < i; j++)
+            {
+                t = geti();
+                arr[j] = t;
+            }
+            MergeSort(0, i - 1);
+            for (j = 0; j < i; j++)
+            {
+                if (j >= 0 && j < i - 1)
+                {
+                    printi(arr[j], ' ');
+                }
+                else if (j == i - 1)
+                {
+                    printi(arr[j], '\n');
+                }
+            }
         }
-        MergeSort(0, n - 1);
-        for (int i = 0; i < n - 1; i++)
-        {
-            printi(arr[i]);
-            putchar(' ');
-        }
-        printi(arr[n - 1]);
-        putchar('\n');
     }
     return 0;
 }

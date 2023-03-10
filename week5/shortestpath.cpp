@@ -1,21 +1,55 @@
-#include <iostream>
+#include <cstdio>
 #include <set>
-#include <utility>
 #include <vector>
-#define INF 0xfffffff
+const int INF = 0xfffffff;
 
 using namespace std;
+
+void printi(int num, char end)
+{
+    int i = num;
+    int t;
+    char cx;
+    int a = 0;
+    char temp[100];
+    while (i != 0)
+    {
+        t = i % 10;
+        i = i / 10;
+        temp[a] = t + '0';
+        a++;
+    }
+    for (i = a - 1; i >= 0; i--)
+    {
+        cx = temp[i];
+        putchar(cx);
+    }
+    putchar(end);
+}
+
+int geti()
+{
+    int i = 0;
+    char c;
+    while ((c = getchar()) != ' ' && c != '\n')
+    {
+        i = i * 10 + c - '0';
+    }
+    return i;
+}
 
 int main()
 {
     int n, m;
     int from, too, weight;
-    cin >> n >> m;
-    vector<vector<pair<int, int>>> graph;
-    graph.resize(n);
+    n = geti();
+    m = geti();
+    vector<vector<pair<int, int>>> graph(n);
     for (int i = 0; i < m; i++)
     {
-        cin >> from >> too >> weight;
+        from = geti();
+        too = geti();
+        weight = geti();
         graph.at(from - 1).push_back({weight, too - 1});
         graph.at(too - 1).push_back({weight, from - 1});
     }
@@ -44,6 +78,6 @@ int main()
             }
         }
     }
-    cout << distance[graph.size() - 1] << endl;
+    printi(distance.at(n - 1), '\n');
     return 0;
 }
