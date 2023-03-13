@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ int main()
 {
     fastio;
     string s, t;
+    vector<char> ans;
     cin >> s >> t;
     int n = s.length(), m = t.length();
     for (int i = 0; i < n + 1; i++)
@@ -36,6 +38,29 @@ int main()
             }
         }
     }
+    int i = n, j = m;
+    while (i > 0 and j > 0)
+    {
+        if (s[i - 1] == t[j - 1])
+        {
+            ans.push_back(s[i - 1]);
+            i--;
+            j--;
+        }
+        else if (dp[i - 1][j] > dp[i][j - 1])
+        {
+            i--;
+        }
+        else
+        {
+            j--;
+        }
+    }
     cout << dp[n][m] << "\n";
+    for (int i = ans.size() - 1; i >= 0; i--)
+    {
+        cout << ans[i];
+    }
+    cout << "\n";
     return 0;
 }
