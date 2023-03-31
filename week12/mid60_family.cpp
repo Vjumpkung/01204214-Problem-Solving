@@ -6,6 +6,22 @@ int tree[1010];
 int n, m;
 int a, b;
 
+bool find_path(int x, int y)
+{
+    if (x == y)
+    {
+        return true;
+    }
+    else if (x == 1)
+    {
+        return false;
+    }
+    else
+    {
+        return find_path(tree[x], y);
+    }
+}
+
 int main()
 {
     cin >> n >> m;
@@ -16,59 +32,17 @@ int main()
     while (m--)
     {
         cin >> a >> b;
-        if (a == 1 or b == 1)
-        {
-            cout << 1 << "\n";
-        }
-        else if (tree[a] == b)
+        if (find_path(a, b))
         {
             cout << b << "\n";
         }
-        else if (tree[b] == a)
+        else if (find_path(b, a))
         {
             cout << a << "\n";
         }
         else
         {
-            int x = -1;
-            int found = 0;
-            x = tree[a];
-            while (not found and x != 1)
-            {
-                if (x == b)
-                {
-                    found = 1;
-                    cout << x << "\n";
-                    break;
-                }
-                else
-                {
-                    int temp = x;
-                    x = tree[temp];
-                }
-            }
-            if (not found)
-            {
-                x = tree[b];
-                while (not found and x != 1)
-                {
-                    if (x == a)
-                    {
-                        found = 1;
-                        cout << x << "\n";
-                        break;
-                    }
-                    else
-                    {
-                        int temp = x;
-                        x = tree[temp];
-                    }
-                }
-            }
-            if (not found)
-            {
-                cout << -1 << "\n";
-            }
+            cout << -1 << "\n";
         }
     }
     return 0;
