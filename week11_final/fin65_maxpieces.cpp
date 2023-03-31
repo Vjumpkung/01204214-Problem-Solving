@@ -1,5 +1,5 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -13,30 +13,6 @@ int X, Y;
 int n, q;
 int arr[MAX_N];
 int cumsum[MAX_N];
-int temp[MAX_N];
-
-int dp[MAX_N];
-int solve(int total, int idx)
-{
-    if (idx == n)
-    {
-        return 0;
-    }
-    if (dp[idx] != -1)
-    {
-        return dp[idx];
-    }
-    else
-    {
-        int ans = 0;
-        if (total + arr[idx] <= X and arr[idx] >= Y)
-        {
-            ans = max(ans, 1 + solve(total + arr[idx], idx + 1));
-        }
-        ans = max(ans, solve(total, idx + 1));
-        return dp[idx] = ans;
-    }
-}
 
 int main()
 {
@@ -47,23 +23,11 @@ int main()
         cin >> arr[i];
     }
     sort(arr, arr + n);
-    // cumsum
     cumsum[0] = arr[0];
     for (int i = 1; i < n; i++)
     {
         cumsum[i] = cumsum[i - 1] + arr[i];
     }
-    // // print cumsum and arr
-    // for (int i = 0; i < n; i++)
-    // {
-    //     cout << cumsum[i] << " ";
-    // }
-    // cout << endl;
-    // for (int i = 0; i < n; i++)
-    // {
-    //     cout << arr[i] << " ";
-    // }
-    // cout << endl;
     for (int i = 0; i < q; i++)
     {
         cin >> X >> Y;
@@ -79,11 +43,14 @@ int main()
         }
         else
         {
-            for (int i = 0; i < n; i++)
+            int yindex = lower_bound(arr, arr + n, Y) - arr - 1;
+            X += cumsum[yindex];
+            int index2 = lower_bound(cumsum, cumsum + n, X) - cumsum;
+            if (X >= cumsum[index2] and index2 < n)
             {
-                dp[i] = -1;
+                index2++;
             }
-            cout << solve(0, 0) << "\n";
+            cout << index2 - yindex - 1 << "\n";
         }
     }
     return 0;
